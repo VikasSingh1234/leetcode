@@ -42,9 +42,6 @@ public:
             v.push_back(head->val);
             head = head->next;
         }
-        for(int i=0;i<v.size();i++){
-            cout<<v[i]<<" ";
-        }
         
         TreeNode* root = NULL;
         root = tree(v,0,v.size(),root);
