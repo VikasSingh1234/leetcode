@@ -7,6 +7,11 @@ public:
         for(int i=0;i<nums.size()-2;i++){
             int l = i+1;
             int h = nums.size()-1;
+            if(i!=0){
+                if(nums[i]==nums[i-1]){
+                    continue;
+                }
+            }
             while(l<h){
                 int sum =(nums[i]+nums[l]+nums[h]);
                 
