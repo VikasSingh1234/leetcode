@@ -10,6 +10,8 @@ public:
         }
         
         for(int i=index;i<candidates.size();i++){
+            if(candidates[i]>target)
+                break;
             if(i>index && candidates[i]==candidates[i-1]){
                 continue;
             }
