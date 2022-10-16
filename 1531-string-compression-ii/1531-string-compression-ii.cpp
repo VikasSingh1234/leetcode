@@ -1,22 +1,36 @@
-class Solution {
-public:
-    int dp[101][101];
-    int dfs(string &s, int left, int K) {
-        int k = K;
-        if(s.size() - left <= k) return 0;
-        if(dp[left][k] >= 0) return dp[left][k];
-        int res = k ? dfs(s, left + 1, k - 1) : 10000, c = 1;
-        for(int i = left + 1; i <= s.size(); ++i) {
-            res = min(res, dfs(s, i, k) + 1 + (c >= 100 ? 3 : (c >= 10 ? 2 : (c > 1 ? 1 :0))));
-            if(i == s.size()) break;
-            if(s[i] == s[left]) ++c;
-            else if(--k < 0) break;
-        }
-        return dp[left][K] = res;
+class Solution
+{
+    int calclen(int len)
+    {
+        if (len <= 1) return len;
+        else if (len < 10) return 2;
+        else if (len < 100) return 3;
+        else return 4;
     }
-    
-    int getLengthOfOptimalCompression(string s, int k) {
-        memset(dp, -1, sizeof(dp));
-        return dfs(s, 0, k);
+
+    public:
+    int getLengthOfOptimalCompression(string s, int k)
+    {
+        int n = s.length();
+        vector<vector<long>> dp(n+1,vector<long>(k+1,INT_MAX));
+        dp[0][0]=0;
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = 0; j <= k; j++)
+            {
+                if (j > 0) 
+                    dp[i][j] = dp[i - 1][j - 1];
+                int removed = 0, count = 0;
+                for (int p = i; p > 0; p--)
+                {
+                    if (s[p-1] == s[i-1]) 
+                        count++;
+                    else if (++removed > j)
+                        break;
+                    dp[i][j] = min(dp[i][j], dp[p - 1][j - removed] + calclen(count));
+                }
+            }
+        }
+        return dp[n][k];
     }
 };
