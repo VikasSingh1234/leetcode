@@ -32,8 +32,8 @@ public:
         if(topoOrder.size()==numCourses)
             return topoOrder;
         else{
-            topoOrder.clear();
-            return topoOrder;
+            vector<int> v(0);
+            return v;
         }
     }
 };
