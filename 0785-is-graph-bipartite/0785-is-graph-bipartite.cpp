@@ -1,26 +1,17 @@
 class Solution {
 public:
     
-    bool check(int start,vector<vector<int>>& graph,vector<int> &color){
-        queue<int> q;
+    bool check(int node,int c,vector<vector<int>>& graph,vector<int> &color){
+        color[node] = c;
         
-        q.push(start);
-        color[start] = 0;
-        
-        while(!q.empty()){
-            int node = q.front();
-            q.pop();
-            
-            for(auto x: graph[node]){
-                if(color[x]==-1){
-                    q.push(x);
-                    if(color[node]==0)
-                        color[x] = 1;
-                    else
-                        color[x] = 0;
-                }
-                else if(color[node]==color[x])
+        for(auto x:graph[node]){
+            if(color[x]==-1){
+                if(!check(x,c^1,graph,color)){
                     return false;
+                }
+            }
+            else if(color[x]==color[node]){
+                return false;
             }
         }
         return true;
@@ -32,7 +23,7 @@ public:
         
         for(int i=0;i<V;i++){
             if(color[i]==-1){
-                if(!check(i,graph,color)){
+                if(!check(i,0,graph,color)){
                     return false;
                 }
             }
