@@ -21,6 +21,10 @@ public:
             int r = it.second.first;
             int c = it.second.second;
             
+            if(r==n-1 &&  c==n-1){
+                return steps;
+            }
+            
             d.erase(it);
             
             for(int i=0;i<8;i++){
