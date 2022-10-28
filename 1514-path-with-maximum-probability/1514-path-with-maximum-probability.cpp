@@ -11,7 +11,7 @@ public:
         vector<double> prob(n,0);
         queue<pair<double,int>> q;
         
-        q.push({1,start});
+        q.push({-1,start});
         prob[start] = 1;
         
         while(!q.empty()){
@@ -21,13 +21,13 @@ public:
             for(auto x:adj[node]){
                 auto [edgenode,edgepb] = x;
                 
-                if(p*edgepb > prob[edgenode]){
+                if(p*edgepb < prob[edgenode]){
                     prob[edgenode] = p*edgepb;
                     q.push({p*edgepb,edgenode});
                 }
             }
         }
         
-        return prob[end];
+        return -prob[end];
     }
 };
