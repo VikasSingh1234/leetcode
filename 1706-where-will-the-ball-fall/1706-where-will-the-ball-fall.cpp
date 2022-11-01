@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int check(vector<vector<int>> grid,int i,int j){
+    int check(vector<vector<int>> &grid,int i,int j){
         int m = grid.size();
         int n = grid[0].size();
         
