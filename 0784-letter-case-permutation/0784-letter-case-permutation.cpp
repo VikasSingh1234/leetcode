@@ -5,22 +5,24 @@ public:
         if(index==l){
             return ;
         }
+        
+        data.insert(s);
+        
+        if(s[index]>='0' && s[index]<='9'){
+            helper(s,index+1,data);
+        }
         else{
-            for(int i = index;i<l;i++){
-                char original = s[i];
+            helper(s,index+1,data);
+            
+            if(s[index]>='a'){
+                s[index] = s[index] -32;
                 data.insert(s);
-                if(s[i]>='a' && s[i]<='z'){
-                    s[i] = s[i]-32;
-                    data.insert(s);
-                    helper(s,i+1,data);
-                    s[i] = original;
-                }
-                else if(s[i]>='A' && s[i]<='Z'){
-                    s[i] = s[i]+32;
-                    data.insert(s);
-                    helper(s,i+1,data);
-                    s[i] = original;
-                }
+                helper(s,index+1,data);
+            }
+            else{
+                s[index] = s[index] +32;
+                data.insert(s);
+                helper(s,index+1,data);
             }
         }
     }
