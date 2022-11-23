@@ -57,10 +57,6 @@ public:
         return true;
     }
     bool isValidSudoku(vector<vector<char>>& board) {
-        // if(row(board)&&col(board)&&box(board))
-        //     return true;
-        // else
-        //     return false;
         return row(board)&&col(board)&&box(board);
     }
 };
