@@ -21,32 +21,36 @@ public:
     bool checkInclusion(string s1, string s2) {
         if(s2.length()<s1.length())
             return false;
-        // cout<<s1.length()<<endl;
         vector<int> mpp1(26,0),mpp2(26,0);
         
-        for(auto it:s1)
-        {
-            mpp1[it-'a']++;
+        for (int i = 0; i < s1.length(); i++) {
+            mpp1[s1[i] - 'a']++;
+            mpp2[s2[i] - 'a']++;
         }
-        int n = s1.length();
-        int i=0,j=0;
-        
-        for(j=0;j<n;j++){
-            mpp2[s2[j]-'a']++;
+
+        int count = 0;
+        for (int i = 0; i < 26; i++) {
+            if (mpp1[i] == mpp2[i])
+                count++;
         }
-        
-        
-        
-        while(j<s2.length()){
-            if(check(mpp1,mpp2)){
+
+        for (int i = 0; i < s2.length() - s1.length(); i++) {
+            int r = s2[i + s1.length()] - 'a', l = s2[i] - 'a';
+            if (count == 26)
                 return true;
+            mpp2[r]++;
+            if (mpp2[r] == mpp1[r]) {
+                count++;
+            } else if (mpp2[r] == mpp1[r] + 1) {
+                count--;
             }
-            mpp2[s2[i++]-'a']--;
-            mpp2[s2[j++]-'a']++;
+            mpp2[l]--;
+            if (mpp2[l] == mpp1[l]) {
+                count++;
+            } else if (mpp2[l] == mpp1[l] - 1) {
+                count--;
+            }
         }
-        if(check(mpp1,mpp2)){
-            return true;
-        }
-        return false;
+        return count == 26;
     }
 };
