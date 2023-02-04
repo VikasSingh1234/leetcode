@@ -31,10 +31,6 @@ public:
         int n = s1.length();
         int i=0,j=0;
         
-        // for(int k=0;k<26;k++){
-        //     cout<<mpp1[k]<<" ";
-        // }
-        // cout<<endl;
         for(j=0;j<n;j++){
             mpp2[s2[j]-'a']++;
         }
@@ -42,10 +38,6 @@ public:
         
         
         while(j<s2.length()){
-            // for(int k=0;k<26;k++){
-            //     cout<<mpp2[k]<<" ";
-            // }
-            // cout<<endl;
             if(check(mpp1,mpp2)){
                 return true;
             }
