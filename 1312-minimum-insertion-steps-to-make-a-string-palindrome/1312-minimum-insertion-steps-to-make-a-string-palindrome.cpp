@@ -1,27 +1,29 @@
 class Solution {
 public:
-    int minInsertions(string s) {
-        int n = s.length();
-        int dp[n+1][n+1];
-        string s1 = s;
-        reverse(s.begin(),s.end());
-        
-        for(int i=0;i<n;i++){
-            dp[i][0] = 0;
-            dp[0][i] = 0;
-        }
-        
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=n;j++){
-                if(s[i-1] == s1[j-1]){
-                    dp[i][j] = dp[i-1][j-1] +1;
-                }
-                else{
-                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+    int lcs(string& s1, string& s2, int m, int n) {
+        vector<int> dp(n + 1), dpPrev(n + 1);
+
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[j] = 0;
+                } else if (s1[i - 1] == s2[j - 1]) {
+                    dp[j] = 1 + dpPrev[j - 1];
+                } else {
+                    dp[j] = max(dpPrev[j], dp[j - 1]);
                 }
             }
+            dpPrev = dp;
         }
-        
-        return (n-dp[n][n]);
+
+        return dp[n];
+    }
+
+    int minInsertions(string s) {
+        int n = s.length();
+        string sReverse = s;
+        reverse(sReverse.begin(), sReverse.end());
+
+        return n - lcs(s, sReverse, n, n);
     }
 };
