@@ -2,41 +2,31 @@ class Solution {
 public:
     int search(vector<int>& nums, int target) {
         
-        int low = 0;
-        int high = nums.size()-1;
+        int s=0, e = nums.size()-1;
         
-        while(low<=high){
-            cout<<low<<" "<<high<<endl;
-            int mid = low+(high-low)/2;
-            int inc = 0;
+        while(s<=e){
+            // find mid element
+            int mid = s +(e-s)/2;
+            
+            // compare with left and right
             if(nums[mid]==target){
                 return mid;
             }
-            
-            if(nums[low]<nums[mid]){
-                if(nums[low]<=target && nums[mid]>target){
-                    high = mid-1;
-                    continue;
+            if(nums[s]<=nums[mid]){
+                if(target>=nums[s] && target<nums[mid]){
+                    e = mid-1;
+                }
+                else{
+                    s = mid+1;
                 }
             }
             else{
-                inc = 1;
-            }
-            if(nums[mid]<nums[high]){
-                if(nums[mid]<target && nums[high]>=target){
-                    low = mid+1;
-                    continue;
+                if(target>nums[mid] && target<=nums[e]){
+                    s = mid+1;
                 }
-            }
-            else{
-                inc = 2;
-            }
-            
-            if(inc==2){
-                low = mid+1;
-            }
-            else{
-                high = mid-1;
+                else{
+                    e = mid-1;
+                }
             }
             
         }
