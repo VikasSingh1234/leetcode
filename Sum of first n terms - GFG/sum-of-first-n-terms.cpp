@@ -10,11 +10,8 @@ class Solution {
   public:
     long long sumOfSeries(long long N) {
         // code here
-        if(N==0){
-            return 0;
-        }
         
-        return N*N*N + sumOfSeries(N-1);
+        return (N*(N+1)/2)*(N*(N+1)/2);
         
     }
 };
