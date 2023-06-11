@@ -38,23 +38,29 @@ public:
         // code here
         vector<pair<int, int>> ans;
         
-        unordered_map<int,int> mpp;
+        Node* start = head;
+        Node* end = head;
         
-        Node* curr = head;
+        while(end->next!=NULL){
+            end = end->next;
+        }
         
-        while(curr){
-            if(mpp.find(target-curr->data)!=mpp.end()){
-                ans.push_back({target-curr->data,curr->data});
-                if(mpp[target-curr->data]==1){
-                    mpp.erase(target-curr->data);
-                }
+        while(start!=end && end->next!=start){
+            if(start->data + end->data==target){
+                ans.push_back({start->data,end->data});
+                start = start->next;
+                end = end->prev;
             }
             else{
-                mpp[curr->data]++;
+                if(start->data + end->data<target){
+                    start = start->next;
+                }
+                else{
+                    end = end->prev;
+                }
             }
-            curr = curr->next;
         }
-        sort(ans.begin(),ans.end());
+        
         return ans;
     }
 };
