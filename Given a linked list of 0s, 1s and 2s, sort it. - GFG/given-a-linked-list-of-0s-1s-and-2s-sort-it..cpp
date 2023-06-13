@@ -37,33 +37,54 @@ class Solution
         
         // Add code here
         Node* curr = head;
-        int zero = 0;
-        int one = 0;
+        Node* zero = new Node(0);
+        Node* one = new Node(1);
+        Node* two = new Node(2);
+        
+        Node* zerotail = zero;
+        Node* onetail = one;
+        Node* twotail = two;
         
         while(curr){
-            if(curr->data==0) zero++;
-            if(curr->data==1) one++;
-            curr = curr->next;
-        }
-        
-        
-        curr = head;
-        while(curr){
-            if(zero){
-                curr->data = 0;
-                zero--;
+            if(curr->data==0){
+                zerotail->next = curr;
+                curr = curr->next;
+                zerotail = zerotail->next;
+                zerotail->next = NULL;
             }
-            else if(one){
-                curr->data = 1;
-                one--;
+            else if(curr->data==1){
+                onetail->next = curr;
+                curr = curr->next;
+                onetail = onetail->next;
+                onetail->next = NULL;
             }
             else{
-                curr->data = 2;
+                twotail->next = curr;
+                curr = curr->next;
+                twotail = twotail->next;
+                twotail->next = NULL;
             }
-            curr = curr->next;
         }
-        
-        return head;
+        zero = zero->next;
+        one = one->next;
+        two = two->next;
+        if(zero!=NULL){
+            if(one!=NULL){
+                zerotail->next = one;
+                onetail->next = two;
+            }
+            else{
+                zerotail->next = two;
+            }
+            return zero;
+        }
+        else if(one!=NULL){
+            onetail->next = two;
+            return one;
+        }
+        else{
+            return two;
+        }
     }
 };
 
