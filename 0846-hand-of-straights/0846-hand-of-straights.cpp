@@ -19,7 +19,7 @@ public:
             else{
                 int search = hand[i];
                 for(int j=0;j<groupSize;j++){
-                    if(mpp.find(search)!=mpp.end()){
+
                         if(mpp[search]!=0){
                             mpp[search]--;
                             search++;
@@ -27,10 +27,6 @@ public:
                         else{
                             return false;
                         }
-                    }
-                    else{
-                        return false;
-                    }
                 }
             }
         }
